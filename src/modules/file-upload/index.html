@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/axios@0.24.0/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <input id="file" type="file" multiple />
+    <script>
+      const fileInput = document.querySelector('#file');
+
+      const chunkSize = 20 * 1024; // 一个分片大小
+
+      fileInput.onchange = async function () {
+        const file = fileInput.files[0];
+
+        console.log(file);
+
+        // 将文件进行分片，依次传给后端
+        const chunks = [];
+        let startPos = 0;
+
+        while (startPos < file.size) {
+          chunks.push(file.slice(startPos, startPos + chunkSize));
+          startPos += chunkSize;
+        }
+        const randomStr = Math.random().toString(36).substring(2, 10);
+
+        const tasks = []; // 分片上传任务
+        chunks.map((chunk, index) => {
+          const form = new FormData();
+          form.set('fileName', `${randomStr}_${file.name}-${index}`);
+          form.append('files', chunk);
+          tasks.push(
+            axios.post('http://localhost:3000/file-upload/upload', form),
+          );
+        });
+
+        // 等待分片任务请求完毕，请求合并任务进行合并
+        await Promise.all(tasks);
+
+        axios.get(
+          `http://localhost:3000/file-upload/merge?fileName=${randomStr}_${file.name}`,
+        );
+      };
+    </script>
+  </body>
+</html>

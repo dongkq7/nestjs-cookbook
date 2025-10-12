@@ -1,5 +1,6 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
+import { LoginGuard } from './modules/user-login/login.guard';
 
 @Controller()
 export class AppController {
@@ -8,5 +9,14 @@ export class AppController {
   @Get()
   getHello(): string {
     return this.appService.getHello();
+  }
+
+  /**
+   * 验证登录
+   */
+  @Get('testLogin')
+  @UseGuards(LoginGuard)
+  aaa() {
+    return 'aaa';
   }
 }

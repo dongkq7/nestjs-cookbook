@@ -11,13 +11,27 @@ declare module 'express-session' {
   }
 }
 
-type LoginUser = { id: number; username: string };
+type LoginUser = {
+  id: number;
+  username: string;
+  email?: string;
+  firstName?: string;
+  lastName?: string;
+  picture?: string;
+};
 type UserRBAC = { username: string; roles: Role[] };
-declare global {
-  namespace Express {
-    interface Request {
-      user: LoginUser;
-      userRbac: UserRBAC;
-    }
+// declare global {
+//   namespace Express {
+//     interface Request {
+//       user: LoginUser;
+//       userRbac: UserRBAC;
+//     }
+//   }
+// }
+
+declare module 'express' {
+  interface Request {
+    user: LoginUser;
+    userRbac: UserRBAC;
   }
 }

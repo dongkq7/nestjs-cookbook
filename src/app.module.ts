@@ -8,6 +8,8 @@ import { RedisModule } from './redis/redis.module';
 import { UserRbacModule } from './modules/user-rbac/user-rbac.module';
 import { JwtModule } from '@nestjs/jwt';
 import { LoginRefreshModule } from './modules/login-refresh/login-refresh.module';
+import { LoginAuthModule } from './modules/login-auth/login-auth.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -15,7 +17,7 @@ import { LoginRefreshModule } from './modules/login-refresh/login-refresh.module
       global: true,
       secret: 'hello world',
       signOptions: {
-        expiresIn: '1d',
+        expiresIn: '0.5h',
       },
     }),
     FileUploadModule,
@@ -24,6 +26,8 @@ import { LoginRefreshModule } from './modules/login-refresh/login-refresh.module
     RedisModule,
     UserRbacModule,
     LoginRefreshModule,
+    LoginAuthModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],

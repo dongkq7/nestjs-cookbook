@@ -1,4 +1,4 @@
-import { HttpException, Injectable, Logger } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
@@ -29,7 +29,7 @@ export class UserLoginService {
     });
 
     if (foundUser) {
-      throw new HttpException('该用户已存在', 200);
+      throw new HttpException('该用户已存在', HttpStatus.OK);
     }
 
     const newUser = new User();
@@ -51,11 +51,11 @@ export class UserLoginService {
     });
 
     if (!foundUser) {
-      throw new HttpException('用户不存在', 200);
+      throw new HttpException('用户不存在', HttpStatus.OK);
     }
 
     if (foundUser.password !== md5(user.password)) {
-      throw new HttpException('用户名或密码错误', 200);
+      throw new HttpException('用户名或密码错误', HttpStatus.OK);
     }
     return foundUser;
   }

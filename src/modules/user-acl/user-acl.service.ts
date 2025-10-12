@@ -63,11 +63,11 @@ export class UserAclService {
     });
 
     if (!user) {
-      throw new HttpException('该用户不存在', HttpStatus.ACCEPTED);
+      throw new HttpException('该用户不存在', HttpStatus.OK);
     }
 
     if (user.password !== loginUserDto.password) {
-      throw new HttpException('密码错误', HttpStatus.ACCEPTED);
+      throw new HttpException('密码错误', HttpStatus.OK);
     }
 
     return user;

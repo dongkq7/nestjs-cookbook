@@ -30,9 +30,9 @@ export class LoginGuard implements CanActivate {
     const token = bearer[1];
 
     try {
-      const info = this.jwtService.verify(token) as unknown as {
+      const info = this.jwtService.verify<{
         user: { id: number; username: string };
-      };
+      }>(token);
       request.user = info.user;
       return true;
     } catch {

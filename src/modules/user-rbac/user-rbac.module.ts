@@ -14,22 +14,22 @@ import { PermissionGuard } from './permission.guard';
     /**
      * CREATE DATABASE rbac_test DEFAULT CHARACTER SET utf8mb4;
      */
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '123456',
-      database: 'rbac_test',
-      synchronize: true,
-      logging: true,
-      entities: [User, Role, Permission],
-      poolSize: 10,
-      connectorPackage: 'mysql2',
-      extra: {
-        authPlugin: 'sha256_password',
-      },
-    }),
+    // TypeOrmModule.forRoot({
+    //   type: 'mysql',
+    //   host: 'localhost',
+    //   port: 3306,
+    //   username: 'root',
+    //   password: '123456',
+    //   database: 'rbac_test',
+    //   synchronize: true,
+    //   logging: true,
+    //   entities: [User, Role, Permission],
+    //   poolSize: 10,
+    //   connectorPackage: 'mysql2',
+    //   extra: {
+    //     authPlugins: 'sha256_password',
+    //   },
+    // }),
   ],
   controllers: [UserRbacController],
   providers: [

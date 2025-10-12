@@ -7,6 +7,7 @@ import { UserAclModule } from './modules/user-acl/user-acl.module';
 import { RedisModule } from './redis/redis.module';
 import { UserRbacModule } from './modules/user-rbac/user-rbac.module';
 import { JwtModule } from '@nestjs/jwt';
+import { LoginRefreshModule } from './modules/login-refresh/login-refresh.module';
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { JwtModule } from '@nestjs/jwt';
     UserAclModule,
     RedisModule,
     UserRbacModule,
+    LoginRefreshModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -24,7 +24,7 @@ import { Permission } from './entities/permission.entity';
     //   poolSize: 10,
     //   connectorPackage: 'mysql2',
     //   extra: {
-    //     authPlugin: 'sha256_password',
+    //     authPlugins: 'sha256_password',
     //   },
     // }),
   ],

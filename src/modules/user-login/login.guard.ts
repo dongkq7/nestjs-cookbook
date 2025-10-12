@@ -30,10 +30,12 @@ export class LoginGuard implements CanActivate {
     const token = bearer[1];
 
     try {
-      const info = this.jwtService.verify(token);
-      (request as any).user = info.User;
+      const info = this.jwtService.verify(token) as unknown as {
+        user: { id: number; username: string };
+      };
+      request.user = info.user;
       return true;
-    } catch (e) {
+    } catch {
       throw new UnauthorizedException('登录失效，请重新登录');
     }
   }

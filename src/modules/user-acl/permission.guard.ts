@@ -36,13 +36,16 @@ export class PermissionGuard implements CanActivate {
       const foundUser = await this.userService.findByUsername(user.username);
       permissions = foundUser!.permissions.map((item) => item.name);
 
-      this.redisService.listSet(
+      void this.redisService.listSet(
         `user_${user.username}_permissions`,
         permissions,
         60 * 30,
       );
     }
-    const permission = this.reflector.get('permission', context.getHandler());
+    const permission = this.reflector.get<string>(
+      'permission',
+      context.getHandler(),
+    );
 
     if (permissions.some((item) => item === permission)) {
       return true;

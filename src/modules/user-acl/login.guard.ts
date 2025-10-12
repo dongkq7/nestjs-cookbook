@@ -7,16 +7,6 @@ import {
 import { Request } from 'express';
 import { Observable } from 'rxjs';
 
-// 扩展下Session中的数据类型
-declare module 'express-session' {
-  // 利用同名interface会自动合并的特性来扩展Session
-  interface Session {
-    user: {
-      username: string;
-    };
-  }
-}
-
 /**
  * 登录校验守卫，采用session的方式
  */

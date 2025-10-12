@@ -3,7 +3,7 @@ import { UserLoginService } from './user-login.service';
 import { UserLoginController } from './user-login.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
-import { JwtModule } from '@nestjs/jwt';
+// import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -28,13 +28,6 @@ import { JwtModule } from '@nestjs/jwt';
     //   },
     // }),
     TypeOrmModule.forFeature([User]),
-    JwtModule.register({
-      global: true,
-      secret: 'hello world',
-      signOptions: {
-        expiresIn: '1d',
-      },
-    }),
   ],
   controllers: [UserLoginController],
   providers: [UserLoginService],

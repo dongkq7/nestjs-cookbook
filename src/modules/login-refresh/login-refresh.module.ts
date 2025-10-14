@@ -22,7 +22,7 @@ import { User } from './entities/user.entity';
     //   poolSize: 10,
     //   connectorPackage: 'mysql2',
     //   extra: {
-    //     authPlugins: 'sha256_password',
+    //     authPlugin: 'sha256_password',
     //   },
     // }),
   ],

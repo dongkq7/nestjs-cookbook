@@ -27,7 +27,7 @@ import { PermissionGuard } from './permission.guard';
     //   poolSize: 10,
     //   connectorPackage: 'mysql2',
     //   extra: {
-    //     authPlugins: 'sha256_password',
+    //     authPlugin: 'sha256_password',
     //   },
     // }),
   ],

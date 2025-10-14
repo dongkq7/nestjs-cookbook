@@ -10,9 +10,15 @@ import { JwtModule } from '@nestjs/jwt';
 import { LoginRefreshModule } from './modules/login-refresh/login-refresh.module';
 import { LoginAuthModule } from './modules/login-auth/login-auth.module';
 import { UserModule } from './user/user.module';
+import { EmailLoginModule } from './modules/email-login/email-login.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: 'src/.env',
+    }),
     JwtModule.register({
       global: true,
       secret: 'hello world',
@@ -28,6 +34,7 @@ import { UserModule } from './user/user.module';
     LoginRefreshModule,
     LoginAuthModule,
     UserModule,
+    EmailLoginModule,
   ],
   controllers: [AppController],
   providers: [AppService],

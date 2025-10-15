@@ -12,9 +12,12 @@ import { LoginAuthModule } from './modules/login-auth/login-auth.module';
 import { UserModule } from './user/user.module';
 import { EmailLoginModule } from './modules/email-login/email-login.module';
 import { ConfigModule } from '@nestjs/config';
+import { ShortUrlModule } from './modules/short-url/short-url.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: 'src/.env',
@@ -35,6 +38,7 @@ import { ConfigModule } from '@nestjs/config';
     LoginAuthModule,
     UserModule,
     EmailLoginModule,
+    ShortUrlModule,
   ],
   controllers: [AppController],
   providers: [AppService],

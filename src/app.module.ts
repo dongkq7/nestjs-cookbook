@@ -15,6 +15,7 @@ import { ConfigModule } from '@nestjs/config';
 import { ShortUrlModule } from './modules/short-url/short-url.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ImgCompressModule } from './modules/img-compress/img-compress.module';
+import { StreamDownloadModule } from './modules/stream-download/stream-download.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { ImgCompressModule } from './modules/img-compress/img-compress.module';
     EmailLoginModule,
     ShortUrlModule,
     ImgCompressModule,
+    StreamDownloadModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -17,6 +17,7 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { ImgCompressModule } from './modules/img-compress/img-compress.module';
 import { StreamDownloadModule } from './modules/stream-download/stream-download.module';
 import { QrcodeLoginModule } from './modules/qrcode-login/qrcode-login.module';
+import { PptGenerateModule } from './modules/ppt-generate/ppt-generate.module';
 
 @Module({
   imports: [
@@ -45,6 +46,7 @@ import { QrcodeLoginModule } from './modules/qrcode-login/qrcode-login.module';
     ImgCompressModule,
     StreamDownloadModule,
     QrcodeLoginModule,
+    PptGenerateModule,
   ],
   controllers: [AppController],
   providers: [AppService],

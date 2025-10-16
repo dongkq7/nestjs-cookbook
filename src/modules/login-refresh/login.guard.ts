@@ -12,7 +12,7 @@ import { Request } from 'express';
 export class LoginGuard implements CanActivate {
   @Inject(JwtService)
   private jwtService: JwtService;
-  async canActivate(context: ExecutionContext): Promise<boolean> {
+  canActivate(context: ExecutionContext): boolean {
     const request: Request = context.switchToHttp().getRequest();
 
     const authorization = request.headers.authorization;

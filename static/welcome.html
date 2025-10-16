@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>欢迎回来</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios@1.5.0/dist/axios.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .welcome-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 50px 40px;
+        max-width: 500px;
+        width: 100%;
+        text-align: center;
+        animation: slideUp 0.6s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #28a745, #20c997);
+        border-radius: 50%;
+        margin: 0 auto 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 36px;
+        animation: scaleIn 0.5s ease-out 0.2s both;
+      }
+
+      @keyframes scaleIn {
+        from {
+          transform: scale(0);
+        }
+        to {
+          transform: scale(1);
+        }
+      }
+
+      h1 {
+        color: #333;
+        font-size: 32px;
+        margin-bottom: 15px;
+        font-weight: 700;
+        animation: fadeIn 0.6s ease-out 0.4s both;
+      }
+
+      .welcome-text {
+        color: #666;
+        font-size: 18px;
+        line-height: 1.6;
+        margin-bottom: 10px;
+        animation: fadeIn 0.6s ease-out 0.5s both;
+      }
+
+      .user-name {
+        color: #667eea;
+        font-weight: 600;
+      }
+
+      .login-time {
+        color: #888;
+        font-size: 14px;
+        margin-bottom: 40px;
+        animation: fadeIn 0.6s ease-out 0.6s both;
+      }
+
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        margin: 40px 0;
+        animation: fadeIn 0.6s ease-out 0.7s both;
+      }
+
+      .stat-item {
+        padding: 20px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+      }
+
+      .stat-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .stat-number {
+        font-size: 28px;
+        font-weight: 700;
+        color: #667eea;
+        margin-bottom: 5px;
+      }
+
+      .stat-label {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        margin: 30px 0;
+        animation: fadeIn 0.6s ease-out 0.8s both;
+      }
+
+      .action-btn {
+        padding: 15px;
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-radius: 12px;
+        color: #333;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .action-btn:hover {
+        background: #667eea;
+        color: white;
+        border-color: #667eea;
+        transform: translateY(-2px);
+      }
+
+      .action-icon {
+        font-size: 20px;
+      }
+
+      .continue-btn {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        border: none;
+        padding: 16px 32px;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        margin-top: 20px;
+        animation: fadeIn 0.6s ease-out 0.9s both;
+      }
+
+      .continue-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+      }
+
+      .security-notice {
+        margin-top: 30px;
+        padding: 15px;
+        background: #fff3cd;
+        border: 1px solid #ffeaa7;
+        border-radius: 10px;
+        color: #856404;
+        font-size: 14px;
+        animation: fadeIn 0.6s ease-out 1s both;
+      }
+
+      .security-icon {
+        margin-right: 8px;
+      }
+
+      /* 动画效果 */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .pulse {
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+        }
+      }
+
+      /* 响应式设计 */
+      @media (max-width: 480px) {
+        .welcome-container {
+          padding: 30px 20px;
+          margin: 10px;
+        }
+
+        h1 {
+          font-size: 24px;
+        }
+
+        .welcome-text {
+          font-size: 16px;
+        }
+
+        .stats-container {
+          grid-template-columns: 1fr;
+          gap: 15px;
+        }
+
+        .quick-actions {
+          grid-template-columns: 1fr;
+        }
+
+        .success-icon {
+          width: 60px;
+          height: 60px;
+          font-size: 28px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="welcome-container">
+      <div class="success-icon pulse">✓</div>
+
+      <h1>欢迎回来！</h1>
+
+      <div class="welcome-text">
+        亲爱的
+        <span class="user-name" id="userName">用户</span>，欢迎回到我们的平台
+      </div>
+
+      <div class="login-time" id="loginTime"></div>
+
+      <div class="stats-container">
+        <div class="stat-item">
+          <div class="stat-number" id="loginCount">128</div>
+          <div class="stat-label">登录次数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="activeDays">45</div>
+          <div class="stat-label">活跃天数</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number" id="memberLevel">VIP</div>
+          <div class="stat-label">会员等级</div>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <a href="/profile" class="action-btn">
+          <span class="action-icon">👤</span>
+          <span>个人资料</span>
+        </a>
+        <a href="/settings" class="action-btn">
+          <span class="action-icon">⚙️</span>
+          <span>系统设置</span>
+        </a>
+        <a href="/messages" class="action-btn">
+          <span class="action-icon">💬</span>
+          <span>消息中心</span>
+        </a>
+        <a href="/help" class="action-btn">
+          <span class="action-icon">❓</span>
+          <span>帮助中心</span>
+        </a>
+      </div>
+
+      <button class="continue-btn" onclick="enterDashboard()">
+        进入控制台
+      </button>
+
+      <div class="security-notice">
+        <span class="security-icon">🔒</span>
+        上次登录时间：<span id="lastLoginTime">--</span> •
+        如果这不是您的操作，请立即修改密码
+      </div>
+    </div>
+
+    <script>
+      // 模拟用户数据 - 实际使用时从后端获取
+      const params = new URLSearchParams(window.location.search.slice(1));
+      const userData = {
+        name: params.get('userName'),
+        loginCount: 128,
+        activeDays: 45,
+        memberLevel: 'VIP',
+        lastLogin: '2025-10-15 14:30:25',
+      };
+
+      localStorage.setItem('qrcode_login_token', params.get('token'));
+
+      // 页面加载时初始化数据
+      document.addEventListener('DOMContentLoaded', function () {
+        // 设置用户信息
+        document.getElementById('userName').textContent = userData.name;
+        document.getElementById('loginCount').textContent = userData.loginCount;
+        document.getElementById('activeDays').textContent = userData.activeDays;
+        document.getElementById('memberLevel').textContent =
+          userData.memberLevel;
+        document.getElementById('lastLoginTime').textContent =
+          userData.lastLogin;
+
+        // 设置当前登录时间
+        const now = new Date();
+        const loginTimeStr = now.toLocaleString('zh-CN', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+        });
+        document.getElementById('loginTime').textContent =
+          `登录时间：${loginTimeStr}`;
+
+        // 添加一些动画效果
+        animateNumbers();
+      });
+
+      // 数字动画效果
+      function animateNumbers() {
+        const numbers = document.querySelectorAll('.stat-number');
+        numbers.forEach((number) => {
+          if (!isNaN(number.textContent)) {
+            const target = parseInt(number.textContent);
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+              current += increment;
+              if (current >= target) {
+                current = target;
+                clearInterval(timer);
+              }
+              number.textContent = Math.floor(current);
+            }, 30);
+          }
+        });
+      }
+
+      // 进入控制台
+      // function enterDashboard() {
+      //   const btn = document.querySelector('.continue-btn');
+      //   btn.textContent = '正在跳转...';
+      //   btn.disabled = true;
+
+      //   // 模拟跳转延迟
+      //   setTimeout(() => {
+      //     window.location.href = '/dashboard'; // 修改为实际的控制台地址
+      //   }, 1000);
+      // }
+
+      // 添加一些交互效果
+      document.querySelectorAll('.action-btn').forEach((btn) => {
+        btn.addEventListener('mouseenter', function () {
+          this.style.transform = 'translateY(-2px)';
+        });
+
+        btn.addEventListener('mouseleave', function () {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+    </script>
+  </body>
+</html>

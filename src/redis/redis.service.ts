@@ -29,4 +29,26 @@ export class RedisService {
       await this.redisClient.expire(key, ttl);
     }
   }
+
+  async hashGet<T = any>(key: string): Promise<T | null> {
+    const result = await this.redisClient.hGetAll(key);
+    if (!Object.keys(result).length) {
+      return null;
+    }
+    return result as T;
+  }
+
+  async hashSet<T extends Record<string, any>>(
+    key: string,
+    data: T,
+    ttl?: number,
+  ) {
+    for (const [name, value] of Object.entries(data)) {
+      await this.redisClient.hSet(key, name, value);
+    }
+
+    if (ttl) {
+      await this.redisClient.expire(key, ttl);
+    }
+  }
 }

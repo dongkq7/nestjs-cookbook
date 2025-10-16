@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>扫码登录确认</title>
+    <script src="https://unpkg.com/axios@1.5.0/dist/axios.min.js"></script>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+          'Helvetica Neue', Arial, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .login-container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        max-width: 400px;
+        width: 100%;
+        text-align: center;
+        animation: slideUp 0.5s ease-out;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .logo {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        border-radius: 50%;
+        margin: 0 auto 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      h1 {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .website-name {
+        color: #667eea;
+        font-weight: bold;
+      }
+
+      .info-text {
+        color: #666;
+        font-size: 16px;
+        line-height: 1.6;
+        margin-bottom: 30px;
+      }
+
+      .button-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        padding: 15px 20px;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: none;
+      }
+
+      .btn-confirm {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      }
+
+      .btn-confirm:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+      }
+
+      .btn-cancel {
+        background: #f8f9fa;
+        color: #666;
+        border: 2px solid #e9ecef;
+      }
+
+      .btn-cancel:hover {
+        background: #e9ecef;
+        border-color: #dee2e6;
+      }
+
+      .security-info {
+        margin-top: 25px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        font-size: 14px;
+        color: #888;
+      }
+
+      .security-icon {
+        color: #28a745;
+        font-weight: bold;
+        margin-right: 5px;
+      }
+
+      /* 响应式设计 */
+      @media (max-width: 480px) {
+        .login-container {
+          padding: 30px 20px;
+          margin: 10px;
+        }
+
+        h1 {
+          font-size: 20px;
+        }
+
+        .info-text {
+          font-size: 14px;
+        }
+
+        .btn {
+          padding: 12px 20px;
+          font-size: 14px;
+        }
+      }
+
+      /* 加载动画 */
+      .loading {
+        display: none;
+        margin: 10px 0;
+      }
+
+      .loading-dots {
+        display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 20px;
+      }
+
+      .loading-dots div {
+        position: absolute;
+        top: 8px;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #667eea;
+        animation-timing-function: cubic-bezier(0, 1, 1, 0);
+      }
+
+      .loading-dots div:nth-child(1) {
+        left: 8px;
+        animation: loading-dots1 0.6s infinite;
+      }
+
+      .loading-dots div:nth-child(2) {
+        left: 8px;
+        animation: loading-dots2 0.6s infinite;
+      }
+
+      .loading-dots div:nth-child(3) {
+        left: 32px;
+        animation: loading-dots2 0.6s infinite;
+      }
+
+      .loading-dots div:nth-child(4) {
+        left: 56px;
+        animation: loading-dots3 0.6s infinite;
+      }
+
+      @keyframes loading-dots1 {
+        0% {
+          transform: scale(0);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      @keyframes loading-dots3 {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(0);
+        }
+      }
+
+      @keyframes loading-dots2 {
+        0% {
+          transform: translate(0, 0);
+        }
+        100% {
+          transform: translate(24px, 0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="logo">✓</div>
+
+      <h1>登录确认</h1>
+
+      <div class="info-text">
+        您正在确认登录 <span class="website-name">XXX 网站</span><br />
+        请确认这是您信任的网站
+      </div>
+
+      <div class="button-group">
+        <button id="confirm" class="btn btn-confirm">确认登录</button>
+        <button id="cancel" class="btn btn-cancel">取消</button>
+      </div>
+
+      <div class="loading">
+        <div class="loading-dots">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
+      <div class="security-info">
+        <span class="security-icon">🔒</span>
+        此操作安全加密，请勿在公共设备上确认登录
+      </div>
+    </div>
+
+    <script>
+      const params = new URLSearchParams(window.location.search.slice(1));
+
+      let token = '';
+      const id = params.get('id');
+      // PC端二维码扫码登录的前提是移动端已经登录了，所以这里调取一下登录接口模拟移动端已经登录了
+      axios
+        // 这里的IP需要换成您的IP
+        .get('http://192.168.10.109:3000/qrcode-login', {
+          params: {
+            username: 'zhangsan',
+            password: '111111',
+          },
+        })
+        .then((res) => {
+          token = res.data.token;
+        });
+
+      // 请求扫码接口进行扫码
+      axios
+        // 这里的IP需要换成您的IP
+        .get('http://192.168.10.109:3000/qrcode-login/scan?id=' + id)
+        .catch(() => {
+          alert('二维码已过期');
+        });
+
+      document.getElementById('confirm').addEventListener('click', function () {
+        const loading = document.querySelector('.loading');
+
+        // 显示加载动画
+        this.style.display = 'none';
+        loading.style.display = 'block';
+
+        axios
+          // 这里的IP需要换成您的IP
+          .get('http://192.168.10.109:3000/qrcode-login/confirm?id=' + id, {
+            headers: {
+              authorization: 'Bearer ' + token,
+            },
+          })
+          .then(() => {
+            alert('登录成功！');
+            loading.style.display = 'none';
+          })
+          .catch(() => {
+            alert('二维码已过期');
+          });
+      });
+
+      document.getElementById('cancel').addEventListener('click', function () {
+        axios
+          // 这里的IP需要换成您的IP
+          .get('http://192.168.10.109:3000/qrcode-login/cancel?id=' + id)
+          .catch(() => {
+            alert('二维码已过期');
+          });
+      });
+    </script>
+  </body>
+</html>

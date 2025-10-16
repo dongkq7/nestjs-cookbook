@@ -16,6 +16,7 @@ import { ShortUrlModule } from './modules/short-url/short-url.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ImgCompressModule } from './modules/img-compress/img-compress.module';
 import { StreamDownloadModule } from './modules/stream-download/stream-download.module';
+import { QrcodeLoginModule } from './modules/qrcode-login/qrcode-login.module';
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { StreamDownloadModule } from './modules/stream-download/stream-download.
     ShortUrlModule,
     ImgCompressModule,
     StreamDownloadModule,
+    QrcodeLoginModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -18,6 +18,7 @@ import { ImgCompressModule } from './modules/img-compress/img-compress.module';
 import { StreamDownloadModule } from './modules/stream-download/stream-download.module';
 import { QrcodeLoginModule } from './modules/qrcode-login/qrcode-login.module';
 import { PptGenerateModule } from './modules/ppt-generate/ppt-generate.module';
+import { ServerInfoModule } from './modules/server-info/server-info.module';
 
 @Module({
   imports: [
@@ -47,6 +48,7 @@ import { PptGenerateModule } from './modules/ppt-generate/ppt-generate.module';
     StreamDownloadModule,
     QrcodeLoginModule,
     PptGenerateModule,
+    ServerInfoModule,
   ],
   controllers: [AppController],
   providers: [AppService],
